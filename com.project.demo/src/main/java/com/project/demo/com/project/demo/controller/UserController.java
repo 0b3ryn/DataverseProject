@@ -27,16 +27,23 @@ public class UserController {
 
 
     @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User theUser, BindingResult theBindingResult){
+    public String saveUser(@ModelAttribute("user") User theUser, Model theModel) {
 
-        userService.save(theUser);
-        if (theBindingResult.hasErrors()) {
+
+        if (!theUser.getPassword().matches("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{8,}$")){
+            theModel.addAttribute("errorMessage", "password must be at least 8 characters long,must be one lower or upper character and one special character");
             return "hallo";
         }
-        else {
-            return "home";
+        if (!(userService.isEmailUnique(theUser.getEmail()))){
+
+           theModel.addAttribute("errorEmail","email must be unique");
+           return "hallo";
         }
 
+        userService.save(theUser);
+        return "home";
 
     }
+
+
 }

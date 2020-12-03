@@ -16,8 +16,7 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @NotNull(message = "Fist Name is required")
-    @Size(min=1, message="is required")
+
     @Column(name = "first_name")
     private String firstName;
 
@@ -79,5 +78,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", company='" + company + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +24,6 @@
 					<tr>
 						<td><label>First name:</label></td>
 						<td><form:input path='firstName' /></td>
-						<td><form:errors path="firstName" cssClass="error" /><td>
 					</tr>
 
 					<tr>
@@ -34,6 +34,7 @@
 					<tr>
 						<td><label>Email:</label></td>
 						<td><form:input path='email' /></td>
+						<td><span style="color:red"><c:out value='${errorMessage}' /><span><td>
 					</tr>
 
 					<tr>
@@ -44,6 +45,7 @@
                     <tr>
                         <td><label>Password:</label></td>
                         <td><form:input path='password' /></td>
+                        <td><span style="color:red"><c:out value='${errorEmail}'/></span><td>
                     </tr>
 
 					<tr>

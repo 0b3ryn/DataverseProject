@@ -24,9 +24,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByName(String name) {
-        return null;
+    public User findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
     }
+
+
 
     @Override
     public boolean isEmailUnique(String email) {

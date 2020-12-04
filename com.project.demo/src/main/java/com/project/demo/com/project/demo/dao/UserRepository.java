@@ -8,6 +8,6 @@ public interface UserRepository {
 
 
     void save (User user);
-    User findByEmail(String email);
+    User findByUserName(String email);
     boolean isEmailUnique(String email);
 }

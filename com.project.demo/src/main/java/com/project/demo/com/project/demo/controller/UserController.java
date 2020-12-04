@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/signup")
+    @PostMapping("/signup")
     public String showSignupPage(Model theModel){
         User user = new User();
         theModel.addAttribute("user",user);
@@ -40,9 +40,21 @@ public class UserController {
            return "hallo";
         }
 
+
         userService.save(theUser);
         return "home";
 
+    }
+    @RequestMapping("/login")
+    public String login()
+    {
+        return "login";
+    }
+
+    @RequestMapping("/home")
+    public String home()
+    {
+        return "home";
     }
 
 

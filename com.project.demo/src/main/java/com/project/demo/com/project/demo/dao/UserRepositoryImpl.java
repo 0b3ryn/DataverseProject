@@ -3,17 +3,21 @@ package com.project.demo.com.project.demo.dao;
 import com.project.demo.com.project.demo.entity.User;
 import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
+
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
 
+    @Autowired
     private EntityManager entityManager;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
 
     @Autowired
     public UserRepositoryImpl(EntityManager entityManager){
@@ -22,13 +26,18 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void save(User user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         entityManager.persist(user);
     }
 
     @Override
-    public User findByEmail(String email) {
+    public User findByUserName(String userName) {
 
-        return null;
+        Query theQuery = entityManager.createQuery("from User where email= :username");
+        theQuery.setParameter("username", userName);
+        User tempUser = (User) theQuery.getSingleResult();
+        return tempUser;
     }
 
     @Override

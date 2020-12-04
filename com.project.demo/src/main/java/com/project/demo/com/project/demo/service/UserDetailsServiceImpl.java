@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -22,10 +23,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user=userRepository.findByUserName(username);
-        System.out.println(user.toString());
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();;
-        grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
-        return new org.springframework.security.core.userdetails.User(user.getFirstName(), user.getPassword(),grantedAuthorities);
+
+
+
+            User user = userRepository.findByUserName(username);
+            if (user == null){
+                throw new UsernameNotFoundException("invalid user");
+            }
+            //System.out.println(user.toString());
+            Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+            grantedAuthorities.add(new SimpleGrantedAuthority("USER"));
+            return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
+
+        }
     }
-}
+

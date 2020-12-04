@@ -30,7 +30,7 @@
 		</c:if>
 
 		<p>
-			User name: <input type="text" name="username" />
+			Email : <input type="text" name="username" />
 		</p>
 
 		<p>
@@ -40,6 +40,8 @@
 		<input type="submit" value="Login" />
 
 	</form:form>
+
+	<a href="<c:url value='/users/signup' />">Sign up</a>
 
 </body>
 
